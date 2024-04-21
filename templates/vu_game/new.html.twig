@@ -4,8 +4,12 @@
 
 {% block body %}
     <h1>Create new Game</h1>
-
+    <div class="container" style="justify-content: center; text-align: center; background-color: #f8f9fa; text-center">
     {{ include('vu_game/_form.html.twig') }}
 
-    <a href="{{ path('app_vu_game_index') }}">back to list</a>
+    <a href="{{ path('app_vu_game_index') }}" class="btn btn-secondary">back to list</a>
+    </div>
 {% endblock %}
+
+
+
