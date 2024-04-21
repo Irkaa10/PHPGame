@@ -31,6 +31,8 @@ security:
                 target: app_login
 
             # Add authentication mechanisms as needed (e.g., form_login, guard, etc.)
+    access_control:
+        #- { path: '/api', roles: ROLE_USER }
 
     # Access control rules
 

@@ -26,6 +26,23 @@ class UserController extends AbstractController
         return new JsonResponse($usersSerializer);
     }
 
+    // Get current loged user
+    #[Route('/me', name: 'app_player_me', methods: ['GET'])]
+    public function showCurrentUser(SerializerInterface $serializerInterface): JsonResponse
+    {
+        // Get the currently logged-in user
+        $currentUser = $this->getUser();
+
+        if (!$currentUser) {
+            return new JsonResponse(['message' => 'No user is currently logged in.'], Response::HTTP_UNAUTHORIZED);
+        }
+
+        // Serialize the current user
+        $currentUserSerialized = $serializerInterface->serialize($currentUser, 'json', ['groups' => 'user']);
+
+        return new JsonResponse($currentUserSerialized);
+    }
+
     #[Route('/', name: 'app_player_new', methods: ['POST'])]
     public function new(EntityManagerInterface $em, SerializerInterface $serializerInterface, Request $request, ValidatorInterface $validatorInterface, UserPasswordHasherInterface $passwordEncoder): JsonResponse
     {
@@ -38,7 +55,7 @@ class UserController extends AbstractController
         $user->setUsername($userData['username']);
         $user->setEmailAdress($userData['emailAddress']);
         $user->setStatus($userData['status']);
-        
+
         // Hash the password
         $hashedPassword = $passwordEncoder->hashPassword($user, $userData['password']);
         $user->setPassword($hashedPassword);

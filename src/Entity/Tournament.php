@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TournamentRepository::class)]
 class Tournament
@@ -18,14 +19,17 @@ class Tournament
     #[Groups(["tournament", "game"])]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups("tournament")]
     private ?string $tournamentName = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     #[Groups("tournament")]
     private ?\DateTimeInterface $startDate = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     #[Groups("tournament")]
     private ?\DateTimeInterface $endDate = null;
@@ -34,6 +38,7 @@ class Tournament
     #[Groups("tournament")]
     private ?string $location = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     #[Groups("tournament")]
     private ?string $description = null;
