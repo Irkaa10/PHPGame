@@ -32,6 +32,7 @@ security:
 
             # Add authentication mechanisms as needed (e.g., form_login, guard, etc.)
     access_control:
+        #Décommenter pour utiliser l'API
         #- { path: '/api', roles: ROLE_USER }
 
     # Access control rules
