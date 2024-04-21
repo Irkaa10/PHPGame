@@ -30,9 +30,6 @@ class TournamentType extends AbstractType
             ->add('maxParticipants', null, [
                 'attr' => ['class' => 'form-control']
             ])
-            ->add('status', null, [
-                'attr' => ['class' => 'form-control']
-            ])
             ->add('game', null, [
                 'attr' => ['class' => 'form-control']
             ])

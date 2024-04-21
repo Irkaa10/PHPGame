@@ -37,7 +37,18 @@
             </tr>
             <tr>
                 <th>Status</th>
-                <td>{{ tournament.status ? 'Yes' : 'No' }}</td>
+                <td>
+                    {% set status = tournament.calculateStatus() %}
+                    {% if status == 'upcoming' %}
+                        Upcoming
+                    {% elseif status == 'ongoing' %}
+                        Ongoing
+                    {% elseif status == 'finished' %}
+                        Finished
+                    {% else %}
+                        Unknown
+                    {% endif %}
+                </td>
             </tr>
             <tr>
                 <th>Game</th>

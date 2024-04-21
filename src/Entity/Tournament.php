@@ -64,6 +64,31 @@ class Tournament
     #[ORM\OneToMany(targetEntity: Game::class, mappedBy: 'tournament')]
     private Collection $games;
 
+
+    // Définir les constantes pour les statuts de tournoi
+    const STATUS_UPCOMING = 'upcoming';
+    const STATUS_ONGOING = 'ongoing';
+    const STATUS_FINISHED = 'finished';
+
+    // Autres propriétés et relations...
+
+    // Méthode pour calculer le statut du tournoi
+    public function calculateStatus(): string
+    {
+        $now = new \DateTime();
+
+        if ($this->startDate > $now) {
+            return self::STATUS_UPCOMING;
+        } elseif ($this->endDate < $now) {
+            return self::STATUS_FINISHED;
+        } else {
+            return self::STATUS_ONGOING;
+        }
+    }
+
+
+
+
     public function __construct()
     {
         $this->registrations = new ArrayCollection();
