@@ -254,4 +254,10 @@ class Tournament
 
         return $this;
     }
+
+    // Ou toute autre propriété qui représente de manière unique le tournoi
+    public function __toString(): string
+    {
+        return $this->tournamentName;
+    }
 }
