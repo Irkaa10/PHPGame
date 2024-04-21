@@ -12,16 +12,36 @@ class TournamentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('tournamentName')
-            ->add('startDate')
-            ->add('endDate')
-            ->add('location')
-            ->add('description')
-            ->add('maxParticipants')
-            ->add('status')
-            ->add('game')
-            ->add('organizer')
-            ->add('winner')
+            ->add('tournamentName', null, [
+                'attr' => ['class' => 'form-control']
+            ])
+            ->add('startDate', null, [
+                'attr' => ['class' => 'form-control']
+            ])
+            ->add('endDate', null, [
+                'attr' => ['class' => 'form-control']
+            ])
+            ->add('location', null, [
+                'attr' => ['class' => 'form-control']
+            ])
+            ->add('description', null, [
+                'attr' => ['class' => 'form-control']
+            ])
+            ->add('maxParticipants', null, [
+                'attr' => ['class' => 'form-control']
+            ])
+            ->add('status', null, [
+                'attr' => ['class' => 'form-control']
+            ])
+            ->add('game', null, [
+                'attr' => ['class' => 'form-control']
+            ])
+            ->add('organizer', null, [
+                'attr' => ['class' => 'form-control']
+            ])
+            ->add('winner', null, [
+                'attr' => ['class' => 'form-control']
+            ])
         ;
     }
 

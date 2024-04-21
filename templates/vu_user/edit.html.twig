@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+    <h1 class="mb-3 text-center bg-body-tertiary">Edit User</h1>
+
+    <div class="container">
+        <div class="row" style="justify-content: center; text-align: center; background-color: #f8f9fa;">
+            <div class="col-md-6">
+                {{ form_start(form, {'attr': {'class': 'form'}}) }}
+                    {{ form_row(form.lastName, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_row(form.firstName, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_row(form.username, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_row(form.emailAdress, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_row(form.password, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_row(form.status, {'attr': {'class': 'form-control'}}) }}
+
+                    <button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
+                    <a href="{{ path('app_vu_user_index') }}" class="btn btn-secondary">Back to List</a>
+                    {{ include('vu_user/_delete_form.html.twig') }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

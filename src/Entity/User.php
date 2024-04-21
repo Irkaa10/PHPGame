@@ -253,4 +253,11 @@ class User
 
         return $this;
     }
+
+// Ou toute autre propriété qui représente de manière unique l'utilisateur
+    public function __toString(): string
+    {
+        return $this->username;
+    }
 }
+

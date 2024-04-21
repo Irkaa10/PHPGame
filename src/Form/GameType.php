@@ -16,6 +16,8 @@ class GameType extends AbstractType
             ->add('scorePlayer1')
             ->add('scorePlayer2')
             ->add('status')
+            ->add('player1')
+            ->add('player2')
             ->add('tournament')
         ;
     }

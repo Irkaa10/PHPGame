@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New User{% endblock %}
+
+{% block body %}
+    <h1>Create new User</h1>
+    <div class="container" style="justify-content: center; text-align: center; background-color: #f8f9fa; text-center">
+    {{ include('vu_user/_form.html.twig') }}
+
+    <a href="{{ path('app_vu_user_index') }}" class="btn btn-secondary">back to list</a>
+    </div>
+{% endblock %}

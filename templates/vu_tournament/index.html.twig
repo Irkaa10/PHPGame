@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Tournament index</h1>
 
-    <table class="table">
+    <table class="table table-striped-columns">
         <thead>
             <tr>
                 <th>Id</th>
@@ -33,8 +33,8 @@
                 <td>{{ tournament.status ? 'Yes' : 'No' }}</td>
                 <td>{{ tournament.game }}</td>
                 <td>
-                    <a href="{{ path('app_tournament_show', {'id': tournament.id}) }}">show</a>
-                    <a href="{{ path('app_tournament_edit', {'id': tournament.id}) }}">edit</a>
+                    <a href="{{ path('app_vu_tournament_show', {'id': tournament.id}) }}">show</a>
+                    <a href="{{ path('app_vu_tournament_edit', {'id': tournament.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -45,5 +45,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_tournament_new') }}">Create new</a>
+    <a href="{{ path('app_vu_tournament_new') }}">Create new</a>
 {% endblock %}

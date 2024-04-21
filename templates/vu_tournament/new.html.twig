@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Tournament{% endblock %}
+
+{% block body %}
+    <h1 class="mb-3 text-center bg-body-tertiary">Create new Tournament</h1>
+    <div class="container" style="justify-content: center; text-align: center; background-color: #f8f9fa; text-center">
+    {{ include('vu_tournament/_form.html.twig') }}
+
+    <a href="{{ path('app_vu_tournament_index') }}" class="btn btn-secondary">Back to List</a>
+
+    </div>
+{% endblock %}

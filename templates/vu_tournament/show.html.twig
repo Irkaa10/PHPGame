@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Tournament</h1>
 
-    <table class="table">
+    <table class="table table-hover">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -43,12 +43,20 @@
                 <th>Game</th>
                 <td>{{ tournament.game }}</td>
             </tr>
+            <tr>
+                <th>Organizer</th>
+                <td>{{ tournament.organizer }}</td>
+            </tr>
+            <tr>
+                <th>Winner</th>
+                <td>{{ tournament.winner }}</td>
+            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_tournament_index') }}">back to list</a>
+    <a href="{{ path('app_vu_tournament_index') }}">back to list</a>
 
-    <a href="{{ path('app_tournament_edit', {'id': tournament.id}) }}">edit</a>
+    <a href="{{ path('app_vu_tournament_edit', {'id': tournament.id}) }}">edit</a>
 
-    {{ include('tournament/_delete_form.html.twig') }}
+    {{ include('vu_tournament/_delete_form.html.twig') }}
 {% endblock %}

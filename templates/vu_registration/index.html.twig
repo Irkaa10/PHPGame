@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Registration index</h1>
 
-    <table class="table">
+    <table class="table table-striped-columns">
         <thead>
             <tr>
                 <th>Id</th>
@@ -21,8 +21,8 @@
                 <td>{{ registration.registrationDate ? registration.registrationDate|date('Y-m-d') : '' }}</td>
                 <td>{{ registration.status }}</td>
                 <td>
-                    <a href="{{ path('app_registration_show', {'id': registration.id}) }}">show</a>
-                    <a href="{{ path('app_registration_edit', {'id': registration.id}) }}">edit</a>
+                    <a href="{{ path('app_vu_registration_show', {'id': registration.id}) }}">show</a>
+                    <a href="{{ path('app_vu_registration_edit', {'id': registration.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -33,5 +33,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_registration_new') }}">Create new</a>
+    <a href="{{ path('app_vu_registration_new') }}" class="btn btn-success  ">Create new</a>
 {% endblock %}
