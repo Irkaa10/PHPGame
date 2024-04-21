@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/api/players')]
 class UserController extends AbstractController
@@ -26,16 +27,30 @@ class UserController extends AbstractController
     }
 
     #[Route('/', name: 'app_player_new', methods: ['POST'])]
-    public function new(EntityManagerInterface $em, SerializerInterface $serializerInterface, Request $request, ValidatorInterface $validatorInterface): JsonResponse
+    public function new(EntityManagerInterface $em, SerializerInterface $serializerInterface, Request $request, ValidatorInterface $validatorInterface, UserPasswordHasherInterface $passwordEncoder): JsonResponse
     {
-        $user = $serializerInterface->deserialize($request->getContent(), User::class, 'json');
+        $userData = json_decode($request->getContent(), true);
 
+        // Create a new User instance
+        $user = new User();
+        $user->setFirstName($userData['firstName']);
+        $user->setLastName($userData['lastName']);
+        $user->setUsername($userData['username']);
+        $user->setEmailAdress($userData['emailAddress']);
+        $user->setStatus($userData['status']);
+        
+        // Hash the password
+        $hashedPassword = $passwordEncoder->hashPassword($user, $userData['password']);
+        $user->setPassword($hashedPassword);
+
+        // Validate the user entity
         $errors = $validatorInterface->validate($user);
         if (count($errors) > 0) {
             $errorString = (string) $errors;
             return new JsonResponse(['error' => $errorString], Response::HTTP_BAD_REQUEST);
         }
 
+        // Persist the user entity
         $em->persist($user);
         $em->flush();
 

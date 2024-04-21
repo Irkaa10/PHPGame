@@ -6,10 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -254,10 +256,33 @@ class User
         return $this;
     }
 
-// Ou toute autre propriété qui représente de manière unique l'utilisateur
-    public function __toString(): string
+    // Required methods for UserInterface
+    public function getRoles(): array
     {
-        return $this->username;
+        // Return an array of roles, you can implement more complex logic here
+        return ['ROLE_USER'];
+    }
+
+    public function getSalt(): ?string
+    {
+        // Not needed when using bcrypt or argon2i as the encoder
+        return null;
+    }
+
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    // Required method for EquatableInterface
+    public function isEqualTo(UserInterface $user): bool
+    {
+        return $this->getUserIdentifier() === $user->getUserIdentifier();
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->emailAdress;
     }
 }
-
