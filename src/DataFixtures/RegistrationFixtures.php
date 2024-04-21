@@ -16,31 +16,17 @@ class RegistrationFixtures extends Fixture implements DependentFixtureInterface
 {
     private $userRepository;
     private $tournamentRepository;
-    private $registrationRepository;
 
-    public function __construct(UserRepository $userRepository, TournamentRepository $tournamentRepository, RegistrationRepository $registrationRepository)
+    public function __construct(UserRepository $userRepository, TournamentRepository $tournamentRepository)
     {
         $this->userRepository = $userRepository;
         $this->tournamentRepository = $tournamentRepository;
-        $this->registrationRepository = $registrationRepository;
     }
 
     public function load(ObjectManager $manager)
     {
         $users = $this->userRepository->findAll();
         $tournaments = $this->tournamentRepository->findAll();
-        $registrations = $this->registrationRepository->findAll();
-
-        $userIds = [];
-        $tournamentIds = [];
-
-        foreach ($users as $user) {
-            $userIds[] = $user->getId();
-        }
-
-        foreach ($tournaments as $tournament) {
-            $tournamentIds[] = $tournament->getId();
-        }
 
         foreach ($tournaments as $tournament) {
             // Randomly select users for registration
@@ -48,11 +34,15 @@ class RegistrationFixtures extends Fixture implements DependentFixtureInterface
 
             foreach ($selectedUsers as $user) {
                 // Check if the user is already registered for this tournament
-                if ($registrations->get) {
+                $existingRegistration = $tournament->getRegistrations()->filter(function ($registration) use ($user) {
+                    return $registration->getPlayer()->contains($user);
+                })->first();
+
+                if (!$existingRegistration) {
                     $registration = new Registration();
                     $registration->setTournament($tournament);
                     $registration->addPlayer($user);
-                    // Assuming registration date is the current date
+                    $registration->setStatus("Confirmée");
                     $registration->setRegistrationDate(new \DateTime());
 
                     $manager->persist($registration);
@@ -85,7 +75,7 @@ class RegistrationFixtures extends Fixture implements DependentFixtureInterface
         return array(
             UserFixtures::class,
             TournamentFixtures::class,
-            // Ajoutez d'autres dépendances si nécessaire
+            // Add other dependencies if necessary
         );
     }
 }
