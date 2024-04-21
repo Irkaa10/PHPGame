@@ -30,7 +30,18 @@
                 <td>{{ tournament.location }}</td>
                 <td>{{ tournament.description }}</td>
                 <td>{{ tournament.maxParticipants }}</td>
-                <td>{{ tournament.status ? 'Yes' : 'No' }}</td>
+                <td>
+                    {% set status = tournament.calculateStatus() %}
+                    {% if status == 'upcoming' %}
+                        Upcoming
+                    {% elseif status == 'ongoing' %}
+                        Ongoing
+                    {% elseif status == 'finished' %}
+                        Finished
+                    {% else %}
+                        Unknown
+                    {% endif %}
+                </td>
                 <td>{{ tournament.game }}</td>
                 <td>
                     <a href="{{ path('app_vu_tournament_show', {'id': tournament.id}) }}">show</a>
@@ -45,5 +56,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_vu_tournament_new') }}">Create new</a>
+    <a href="{{ path('app_vu_tournament_new') }}" class="btn btn-success">Create new</a>
 {% endblock %}

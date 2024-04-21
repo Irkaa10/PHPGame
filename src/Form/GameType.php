@@ -12,13 +12,13 @@ class GameType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('gameDate')
-            ->add('scorePlayer1')
-            ->add('scorePlayer2')
-            ->add('status')
-            ->add('player1')
-            ->add('player2')
-            ->add('tournament')
+            ->add('gameDate', null, ['attr' => ['class' => 'form-control']])
+            ->add('scorePlayer1', null, ['attr' => ['class' => 'form-control']])
+            ->add('scorePlayer2', null, ['attr' => ['class' => 'form-control']])
+            ->add('status', null, ['attr' => ['class' => 'form-control']])
+            ->add('player1', null, ['attr' => ['class' => 'form-control']])
+            ->add('player2', null, ['attr' => ['class' => 'form-control']])
+            ->add('tournament', null, ['attr' => ['class' => 'form-control']])
         ;
     }
 
